@@ -1,0 +1,22 @@
+# Dependencies
+/node_modules
+
+# Build artifacts
+/dist
+/build
+/public
+/out
+
+# Logs and temporary files
+npm-debug.log*
+*.log
+*.tmp
+logs/
+
+# Environment variables
+.env
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
