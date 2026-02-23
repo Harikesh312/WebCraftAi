@@ -1,5 +1,6 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
 
 const LoginModal = ({ open, onClose }) => {
   return (
@@ -35,7 +36,7 @@ const LoginModal = ({ open, onClose }) => {
                 className="absolute top-5 right-5 z-20 text-zinc-400 hover:text-white transition text-lg cursor-pointer"
                 onClick={onClose}
               >
-                X
+                <X size={22} strokeWidth={2} />
               </button>
 
               <div className="relative px-8 pt-14 pb-10 text-center">
@@ -63,6 +64,24 @@ const LoginModal = ({ open, onClose }) => {
                     Continue With Google
                   </div>
                 </motion.button>
+
+              <div className="flex items-center gap-4 my-10">
+                <div className="h-px flex-1 bg-white/10"/>
+                <span className="text-xs text-zinc-500 tracking-wide">Secure Login</span>
+                <div className="h-px flex-1 bg-white/10"/>
+              </div>
+
+              <p className="text-xs text-zinc-500 leading-relaxed">
+                By continuing, you agree to our {" "}
+                <span className="underline cursor-pointer hover:text-zinc-300">
+                  Terms of Service
+                </span>{" "}
+                and{" "}
+                <span className="underline cursor-pointer hover:text-zinc-300">
+                  Privacy Policy
+                </span>
+              </p>
+
               </div>
             </div>
           </motion.div>
