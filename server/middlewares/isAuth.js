@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken"
+import User from "../models/user.model.js"
 
 const isAuth = async (req,res,next) => {
     try {
@@ -10,6 +11,8 @@ const isAuth = async (req,res,next) => {
         req.user = await User.findById(decoded.id);
         next();
     } catch (error) {
-        
+        return res.status(500).json({message:"Invalid token"});
     }
 }
+
+export default isAuth
