@@ -1,9 +1,10 @@
-const openRouter = "https://openrouter.ai/api/v1/chat/completions";
+const openRouterUrl = "https://openrouter.ai/api/v1/chat/completions";
 const model = "deepseek/deepseek-chat";
 
-const generateResponse = async (prompt) => {
+export const generateResponse = async (prompt) => {
   const res = await fetch(openRouterUrl, {
     method: "POST",
+    signal: AbortSignal.timeout(180000), // ✅ 3 minute timeout
     headers: {
       Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
       "Content-Type": "application/json",
@@ -17,17 +18,15 @@ const generateResponse = async (prompt) => {
           content: prompt,
         },
       ],
-      temperature:0.2
+      temperature: 0.2
     }),
   });
 
-  if(!res.ok)
-  {
+  if (!res.ok) {
     const err = await res.text()
-    throw new Error("openRouter err"+err)
+    throw new Error("openRouter err: " + err)
   }
 
   const data = await res.json()
-  return data
-
+  return data.choices[0].message.content
 };
