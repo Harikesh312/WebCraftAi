@@ -2,6 +2,8 @@ import { generateResponse } from "../config/openRouter.js";
 import User from "../models/user.model.js";
 import website from "../models/website.model.js";
 import extractJson from "../utils/extractJson.js";
+import slugify from "slugify";
+import { v4 as uuidv4 } from "uuid";
 
 const masterPrompt = `
 YOU ARE A PRINCIPAL FRONTEND ARCHITECT
@@ -185,9 +187,14 @@ export const generateWebsite = async (req, res) => {
       return res.status(400).json({ message: "ai returned invalid response" });
     }
 
+    const title = prompt.slice(0, 60);
+    const slugBase = slugify(title, { lower: true, strict: true }) || "website";
+    const slug = `${slugBase}-${uuidv4().split("-")[0]}`;
+
     const createdWebsite = await website.create({
       user: user._id,
-      title: prompt.slice(0, 60),
+      title,
+      slug,
       latestCode: parsed.code,
       conversation: [
         {
@@ -294,8 +301,8 @@ export const changes = async (req, res) => {
     }
 
     foundWebsite.conversation.push(
-      { role: "ai", content: parsed.message },
       { role: "user", content: prompt },
+      { role: "ai", content: parsed.message },
     );
     foundWebsite.latestCode = parsed.code; 
 

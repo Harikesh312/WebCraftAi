@@ -12,6 +12,13 @@ const Editor = () => {
   const [messages, setMessages] = useState([]);
   const [prompt, setPrompt] = useState("");
   const iframeRef = useRef(null);
+  const thinkingSteps  = [
+    "Understanding your request...",
+    "Planning layout changes...",
+    "Improving responsiveness...",
+    "Applying animations...",
+    "Finalizing update...",
+  ]
 
 
   const handleUpdate = async () => {
