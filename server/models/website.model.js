@@ -46,7 +46,7 @@ const websiteSchema = new mongoose.Schema({
 
 },{timestamps:true})
 
-// Pre-save hook: auto-generate a unique slug if missing or null
+
 websiteSchema.pre("save", async function () {
     if (!this.slug) {
         const base = this.title

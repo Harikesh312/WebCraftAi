@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { serverUrl } from "../App";
 import {
+  ArrowLeft,
   Code,
   Code2,
   MessageSquare,
@@ -193,7 +194,7 @@ const WebsiteEditor = () => {
             exit={{ y: "100%" }}
             className="fixed inset-0 z-[9999] bg-black flex flex-col"
           >
-            <Header onclose={()=>setShowChat(false)}/>
+            <Header onclose={() => setShowChat(false)} />
             <>
               <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
                 {messages.map((m, i) => (
@@ -283,14 +284,28 @@ const WebsiteEditor = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>   
+    </div>
   );
 
-  function Header({onclose}) {
+  function Header({ onclose }) {
+    const navigate = useNavigate();
     return (
       <div className="h-14 px-4 flex items-center justify-between border-b border-white/10">
-        <span className="font-semibold truncate">{website.title}</span>
-        {onclose && <button onClick={onclose}><X size={18} color="white"/></button>}  
+        <div className="flex items-center gap-3 min-w-0">
+          {" "}
+          <button
+            onClick={() => navigate("/dashboard")}
+            className="p-1.5 rounded-lg hover:bg-white/10 transition cursor-pointer shrink-0"
+          >
+            <ArrowLeft size={16} />
+          </button>
+          <span className="font-semibold truncate">{website.title}</span>
+        </div>
+        {onclose && (
+          <button onClick={onclose} className="shrink-0">
+            <X size={18} color="white" />
+          </button>
+        )}
       </div>
     );
   }

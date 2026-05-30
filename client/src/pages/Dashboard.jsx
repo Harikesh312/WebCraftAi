@@ -82,6 +82,7 @@ const Dashboard = () => {
             {websites.map((w, i) => (
               <motion.div
                 key={i}
+                onClick={() => navigate(`/editor/${w._id}`)}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
@@ -110,7 +111,7 @@ const Dashboard = () => {
                     <button
                       className="mt-auto flex items-center justify-center gap-2
                     px-4 py-2 rounded-xl text-sm font-semibold
-                    bg-gradient-to-r from-indigo-500 to-purple-500
+                    bg-linear-to-r from-indigo-500 to-purple-500
                     hover:scale-105 transition cursor-pointer"
                     >
                       <Rocket size={18} />
